@@ -1,0 +1,9 @@
+---
+# tasks file for os_settings
+  - name: set hostname
+    include: debian_hostname.yml
+    when: (HostName is defined)
+
+  - name: set ps1
+    include: debian_terminal_ps1.yml
+    when: (os_Settings['shell']['root']['ps1'] is defined) or (os_Settings['shell']['user']['ps1'] is defined)

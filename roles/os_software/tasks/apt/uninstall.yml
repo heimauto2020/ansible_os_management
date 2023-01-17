@@ -15,4 +15,4 @@
         ansible.builtin.apt:
           name: "{{ name }}"
           state: absent
-        when: (Search not in software['apt'])
+        when: ({name:"{{name}}"} not in software['apt'])

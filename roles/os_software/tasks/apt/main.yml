@@ -37,7 +37,7 @@
       when: ("'pip' in software['update']") or ("'apt' in software['update']")
 
     - name: Create temporäres File.
-      local_action: template src="managed_machine.yaml.j2" dest="./tmp/managed_machine.yaml"
+      local_action: template src="managed_machine.yaml.j2" dest="tmp/managed_machine.yaml"
 
     - include_vars:
         file: "managed/managed_machines.yaml"

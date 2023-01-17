@@ -1,0 +1,25 @@
+---
+  - include_vars: concat.yml
+  - name: "Setup S1 for Root"
+    become: yes
+    become_user: root
+    tags: example1
+    lineinfile:
+      path: /root/.bashrc
+      line: "{{lineroot}}"
+      state: present
+      insertafter: EOF
+    with_items:
+     - { line: "{{lineroot}}" }
+
+  - name: "Setup S1 for Default User"
+    become: yes
+    become_user: root
+    tags: example1
+    lineinfile:
+      path: /home/zalatschenko/.bashrc
+      line: "{{lineuser}}"
+      state: present
+      insertafter: EOF
+    with_items: 
+     - { line: "{{lineuser}}" }

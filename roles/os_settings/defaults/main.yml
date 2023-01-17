@@ -1,0 +1,8 @@
+---
+# defaults file for os_settings
+os_settings:
+  shell:
+    root:
+      ps1: "(っ▀¯▀)つ"
+    user:
+      ps1: "(っ•́｡•́)♪♬"

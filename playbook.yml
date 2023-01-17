@@ -1,6 +1,12 @@
 ---
-- hosts: all
+- hosts: localhost
   gather_facts: no
   become: yes
   roles:
     - role: os_software
+
+- hosts: localhost
+  gather_facts: no
+  become: yes
+  roles:
+    - role: os_settings
