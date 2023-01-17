@@ -1,0 +1,20 @@
+---
+# Tasks for Client which dont have python or python-apt or pip installed. Otherwise any other rols will crash.
+# Some Os like Ubuntu dont need it because python and pip are pre-installed. Os like Proxmox on the otherside need it. 
+  - name: apt -y update
+    command: apt -y update
+
+  - name: install python apt package
+    command: apt install python3-apt
+
+  - name: install python3-pip
+    command: apt -y install python3-pip
+    
+  - name: install python-dev
+    command: apt -y install python3-dev
+
+  - name: build-essential
+    command: apt -y install build-essential
+
+  - name: python3-pip
+    command: apt -y install python3-pip

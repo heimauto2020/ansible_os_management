@@ -1,0 +1,18 @@
+---
+      - debug:
+          msg: "{{ item }}"
+      - debug:
+          msg: "{{ name }}"
+      - debug:
+          msg: "{{ name }}"
+      - name: Set Search Fact
+        set_fact:
+          Search:
+            - name: "{{ name }}"
+            - version: "{{ version }}"
+          cacheable: False
+      - name: Remove {{ name }} Package
+        ansible.builtin.apt:
+          name: "{{ name }}"
+          state: absent
+        when: (Search not in software['apt'])

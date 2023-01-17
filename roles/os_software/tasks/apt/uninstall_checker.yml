@@ -1,0 +1,18 @@
+---
+  - include_vars:
+      file: "managed/managed_machines.yaml"
+      name: bevor
+
+  - name: Load old Settings
+    set_fact:
+      old_Values: "{{ bevor[inventory_hostname]['installed_software'] }}"
+      cacheable: False # not required. This boolean converts the variable into an actual 'fact' which will also be added to the fact cache, if fact caching is enabled. Normally this module creates 'host level variables' and has much higher precedence, this option changes the nature and precedence (by 7 steps) of the variable created. https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable This actually creates 2 copies of the variable, a normal 'set_fact' host variable with high precedence and a lower 'ansible_fact' one that is available for persistance via the facts cache plugin. This creates a possibly confusing interaction with C(meta: clear_facts) as it will remove the 'ansible_fact' but not the host variable.
+  - debug:
+      msg: "{{old_Values['apt']}}"
+  - name: "Uninstall not anymore defined Softwares"
+    vars:
+      - name: "{{ item.name }}"
+      - version: "{% if item.version is defined %}{{item.version}}{%endif%}"
+    include_tasks: uninstall.yml
+    loop: "{{ old_Values['apt']}}"
+    when: (old_Values['apt']|length >= 1)

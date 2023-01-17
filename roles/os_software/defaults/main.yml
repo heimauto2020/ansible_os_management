@@ -1,0 +1,9 @@
+---
+# defaults file for os_software
+software:
+  apt:
+    - name: "nano"
+
+  update:
+    - "pip"
+    - "apt"

@@ -1,0 +1,10 @@
+---
+{{inventory_hostname}}:
+  installed_software:
+  {% if software['apt'] is defined %}
+    apt:
+  {% for Software in software['apt'] %}
+      - name: {{ Software['name'] }}
+          version: "{% if Software['version'] is defined %}{{version}}{%endif%}"
+  {% endfor %}
+  {%endif%}

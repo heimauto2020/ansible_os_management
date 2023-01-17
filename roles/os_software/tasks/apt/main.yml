@@ -1,0 +1,54 @@
+---
+#    - debug:
+#        msg: "{{ software }}"
+#
+#    - debug:
+#        msg: "{{ software['update'] }}"
+#
+#    - debug:
+#        msg: "{{ software['apt'] }}"
+
+    - name: "Check Uninstall"
+      include_tasks: uninstall_checker.yml
+      when: "'apt' in software['update']"
+
+    - name: "Update apt"
+      include_tasks: update.yml
+      when: "'apt' in software['update']"
+
+    - name: Update apt repo and cache on all Debian/Ubuntu boxes
+      apt: update_cache=yes force_apt_get=yes 
+      when: (software['apt'] is defined) and (software['apt']|length >= 1)
+
+    - name: "Install Defined Softwares"
+      vars:
+        - name: "{{ item.name }}"
+        - version: "{% if item.version is defined %}{{item.version}}{%endif%}"
+      include_tasks: install.yml
+      loop: "{{ software['apt'] }}"
+      when: (software['apt'] is defined) and (software['apt']|length >= 1)
+      
+    - name: "Update pip"
+      include_tasks: ../pip/apt/pip.yml
+      when: "'pip' in software['update']"
+
+    - name: "Reboot Check"
+      include_tasks: check_reboot.yml
+      when: ("'pip' in software['update']") or ("'apt' in software['update']")
+
+    - name: Create temporäres File.
+      local_action: template src="managed_machine.yaml.j2" dest="./tmp/managed_machine.yaml"
+
+    - include_vars:
+        file: "managed/managed_machines.yaml"
+        name: original
+
+    - include_vars:
+        file: "tmp/managed_machine.yaml"
+        name: new
+
+    - set_fact:
+        my_vars: "{{ original|combine(new, recursive=True) }}"
+
+    - name: Create File
+      local_action: template src="managed_machines.yaml.j2" dest="managed/managed_machines.yaml"

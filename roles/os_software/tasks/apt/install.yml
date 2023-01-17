@@ -1,0 +1,28 @@
+---
+    - debug:
+          msg: "{{ name }}"
+    - debug:
+          msg: "{{ version }}"
+    - name: "Testing if Version defined."
+      set_fact:
+        versiondef: true
+        cacheable: False
+      when: (version is defined) and (version != "")
+
+    - set_fact:
+        versiondef: false
+        cacheable: False
+      when: (version is not defined) or (version == "")
+
+    - name: install {{ name }} latest
+      apt:
+        name: "{{ name }}"
+        state: present
+        update_cache: true
+      become: true
+      when: not versiondef and (name is defined)
+
+    - name: install specific version v:{{ version }} of {{ name }} 
+      apt:
+        name: "{{ name }}={{ version }}"
+      when: versiondef and (name is defined)
