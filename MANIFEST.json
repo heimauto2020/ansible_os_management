@@ -1,0 +1,28 @@
+{
+ "collection_info": {
+  "namespace": "heimauto2020",
+  "name": "ansible_os_management",
+  "version": "1.0.0",
+  "authors": [
+   "heimauto2020 <heimauto2020@gmail.com>"
+  ],
+  "readme": "README.md",
+  "tags": [],
+  "description": "your collection description",
+  "license": [],
+  "license_file": null,
+  "dependencies": {},
+  "repository": "https://github.com/heimauto2020/ansible_os_management",
+  "documentation": null,
+  "homepage": null,
+  "issues": null
+ },
+ "file_manifest_file": {
+  "name": "FILES.json",
+  "ftype": "file",
+  "chksum_type": "sha256",
+  "chksum_sha256": "be33a664484468f7d281374338a5b579aabbc72fe3e36e6ec9d506c7abaa31fd",
+  "format": 1
+ },
+ "format": 1
+}
