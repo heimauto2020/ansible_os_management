@@ -8,7 +8,7 @@
       become_user: root
       shell: hostnamectl set-hostname "{{HostName}}"
       when: actual_hostname != '{{HostName}}'
-      
+
     - name: set pretty if hostname was not set.
       become_user: root
       shell: hostnamectl set-hostname "{{HostName}}" --pretty
