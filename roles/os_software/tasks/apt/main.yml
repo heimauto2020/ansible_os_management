@@ -27,7 +27,7 @@
       include_tasks: install.yml
       loop: "{{ software['apt'] }}"
       when: (software['apt'] is defined) and (software['apt']|length >= 1)
-      
+
     - name: "Update pip"
       include_tasks: ../pip/apt/pip.yml
       when: "'pip' in software['update']"

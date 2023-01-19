@@ -1,18 +1,27 @@
 ---
-      - debug:
-          msg: "{{ item }}"
-      - debug:
-          msg: "{{ name }}"
-      - debug:
-          msg: "{{ name }}"
+      #- debug:
+      #    msg: "{{ item }}"
+
+      #- debug:
+      #    msg: "{{ name }}"
+
       - name: Set Search Fact
         set_fact:
           Search:
             - name: "{{ name }}"
             - version: "{{ version }}"
           cacheable: False
+
+      - name: Create dict (set_fact)
+        set_fact:
+          search: "{'name':'{{name}}'}"  # required. The C(set_fact) module takes key=value pairs as variables to set in the playbook scope. Or alternatively, accepts complex arguments using the C(args:) statement.
+          cacheable: False # not required. This boolean converts the variable into an actual 'fact' which will also be added to the fact cache, if fact caching is enabled. Normally this module creates 'host level variables' and has much higher precedence, this option changes the nature and precedence (by 7 steps) of the variable created. https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable This actually creates 2 copies of the variable, a normal 'set_fact' host variable with high precedence and a lower 'ansible_fact' one that is available for persistance via the facts cache plugin. This creates a possibly confusing interaction with C(meta: clear_facts) as it will remove the 'ansible_fact' but not the host variable.
+
+      #- debug:
+      #    msg: "This is the Vars array you defined: {{software['apt']}} The Software which you installed bevor: {{name}} The role will search this dict in your settings: {{search}}"
+
       - name: Remove {{ name }} Package
         ansible.builtin.apt:
           name: "{{ name }}"
           state: absent
-        when: ({name:"{{name}}"} not in software['apt'])
+        when: (search not in software['apt'])

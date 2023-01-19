@@ -1,16 +1,28 @@
 ---
-    - debug:
-          msg: "{{ name }}"
-    - debug:
-          msg: "{{ version }}"
+    #- debug:
+    #      msg: "{{ name }}"
+
+    #- debug:
+    #      msg: "{{ version }}"
+
+    - set_fact:
+            installed: True  # required. The C(set_fact) module takes key=value pairs as variables to set in the playbook scope. Or alternatively, accepts complex arguments using the C(args:) statement.
+            cacheable: False
+      when: ({'name':'{{name}}'} in software['apt'])
+
+    - set_fact:
+            installed: False  # required. The C(set_fact) module takes key=value pairs as variables to set in the playbook scope. Or alternatively, accepts complex arguments using the C(args:) statement.
+            cacheable: False
+      when: ({'name':'{{name}}'} not in software['apt'])
+
     - name: "Testing if Version defined."
       set_fact:
-        versiondef: true
+        versiondef: True
         cacheable: False
       when: (version is defined) and (version != "")
 
     - set_fact:
-        versiondef: false
+        versiondef: False
         cacheable: False
       when: (version is not defined) or (version == "")
 
@@ -20,9 +32,9 @@
         state: present
         update_cache: true
       become: true
-      when: not versiondef and (name is defined)
+      when: not versiondef and (name is defined) and not {{installed}}
 
     - name: install specific version v:{{ version }} of {{ name }} 
       apt:
         name: "{{ name }}={{ version }}"
-      when: versiondef and (name is defined)
+      when: versiondef and (name is defined) and not {{installed}}
