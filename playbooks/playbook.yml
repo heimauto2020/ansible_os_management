@@ -1,11 +1,11 @@
 ---
-- hosts: localhost
+- hosts: all
   gather_facts: no
   become: yes
   roles:
     - role: os_software
 
-- hosts: localhost
+- hosts: all
   gather_facts: no
   become: yes
   roles:
