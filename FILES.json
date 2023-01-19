@@ -36,20 +36,6 @@
    "format": 1
   },
   {
-   "name": "meta",
-   "ftype": "dir",
-   "chksum_type": null,
-   "chksum_sha256": null,
-   "format": 1
-  },
-  {
-   "name": "meta/main.yml",
-   "ftype": "file",
-   "chksum_type": "sha256",
-   "chksum_sha256": "ac01a5fd49e238675f4109e29ad9671679c69baf2edc051b0c9174c5c78ba4b4",
-   "format": 1
-  },
-  {
    "name": "roles",
    "ftype": "dir",
    "chksum_type": null,
