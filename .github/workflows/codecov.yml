@@ -1,0 +1,16 @@
+name: Codecov
+on:
+  # Triggers this Action on push or pull request events on the "main" branch and when manually requested from the "Actions" tab
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  deploy_code:
+    runs-on: ubuntu-latest
+    steps:
+      - name: uploader
+        run: |
+          curl -Os https://uploader.codecov.io/latest/linux/codecov chmod +x codecov ./codecov
+          chmod +x codecov
+          ./codecov
