@@ -11,6 +11,7 @@ jobs:
     steps:
       - name: uploader
         run: |
-          curl -Os https://uploader.codecov.io/latest/linux/codecov chmod +x codecov ./codecov
-          chmod +x codecov
-          ./codecov
+          { curl -Os https://uploader.codecov.io/latest/linux/codecov chmod +x codecov ./codecov &&
+          chmod +x codecov &&
+          ./codecov } || {
+          exit 1 }
