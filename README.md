@@ -3,7 +3,7 @@ You can build a new repository for an Ansible Collection using this template by 
 
 # Foo Collection for Ansible
 <!-- Add CI and code coverage badges here. Samples included below. -->
-[![CI](https://github.com/ansible-collections/REPONAMEHERE/workflows/CI/badge.svg?event=push)](https://github.com/ansible-collections/REPONAMEHERE/actions) [![Codecov](https://img.shields.io/codecov/c/github/ansible-collections/REPONAMEHERE)](https://codecov.io/gh/ansible-collections/REPONAMEHERE)
+[![CI](https://github.com/ansible-collections/heimauto2020/os_management/workflows/CI/badge.svg?event=push)](https://github.com/ansible-collections/heimauto2020/os_management/actions) [![Codecov](https://img.shields.io/codecov/c/github/ansible-collections/heimauto2020/os_management)](https://codecov.io/gh/ansible-collections/heimauto2020/os_management)
 
 <!-- Describe the collection and why a user would want to use it. What does the collection do? -->
 
