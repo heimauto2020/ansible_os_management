@@ -7,10 +7,12 @@ on:
 
 jobs:
   deploy_code:
-    runs-on: ubuntu-latest
+    runs-on: 
     steps:
       - name: uploader
         run: |
-          curl -Os https://uploader.codecov.io/latest/linux/codecov chmod +x codecov ./codecov &&
-          chmod +x codecov &&
+          git clone -b main git@github.com:heimauto2020/ansible_os_management.git original
+          cd original
+          curl -Os https://uploader.codecov.io/latest/linux/codecov chmod +x codecov ./codecov
+          chmod +x codecov
           ./codecov
